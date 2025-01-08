@@ -1,0 +1,17 @@
+[project]
+name = "admin"
+version = "0.1.0"
+description = "Admin scripts to automate various boring tasks"
+readme = "README.md"
+authors = [
+    { name = "Adam Getchell", email = "acgetchell@ucdavis.edu" }
+]
+requires-python = ">=3.9"
+dependencies = []
+
+[project.scripts]
+admin = "admin:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
