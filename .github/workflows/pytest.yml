@@ -1,0 +1,31 @@
+name: Pytest
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version:
+          - 3.12
+          - 3.13
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Install uv and set up Python ${{ matrix.python-version }}
+      uses: astral-sh/setup-uv@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+        enable-cache: true
+        cache-dependency-glob: "uv.lock"
+    
+    - name: Install project
+      run: |
+        uv sync --all-extras --dev
+        uv pip install pylint
+    
+    - name: Analyzing the code with pylint
+      run: |
+        pylint -v
