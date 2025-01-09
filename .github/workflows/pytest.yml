@@ -24,8 +24,7 @@ jobs:
     - name: Install project
       run: |
         uv sync --all-extras --dev
-        uv pip install pylint
     
-    - name: Analyzing the code with pylint
+    - name: Run unit tests
       run: |
-        pylint -v
+        pytest -v
