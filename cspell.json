@@ -4,9 +4,11 @@
     "dictionaryDefinitions": [],
     "dictionaries": [],
     "words": [
+        "boxsdk",
         "Getchell",
         "pycache",
         "Pylint",
+        "pypdf",
         "pytest",
         "venv"
     ],

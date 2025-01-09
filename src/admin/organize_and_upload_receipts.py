@@ -1,5 +1,31 @@
+"""Receipt organization and Box upload automation tool.
+
+This module provides functionality to:
+    - Extract company names and dates from PDF receipts
+    - Organize receipts into directories
+    - Upload receipts to Box cloud storage
+
+Dependencies:
+    - PyPDF2: PDF parsing
+    - boxsdk: Box API integration
+    - Python 3.6+: f-strings, Path objects
+
+Key Functions:
+    extract_company_and_date: Extracts metadata from PDF receipts
+    upload_to_box: Handles Box cloud storage uploads
+
+Example:
+    >>> from organize_and_upload_receipts import extract_company_and_date
+    >>> company, date = extract_company_and_date("receipt.pdf")
+    >>> print(f"Company: {company}, Date: {date}")
+"""
+
+__version__ = '0.1.0'
+__author__ = 'Adam Getchell'
+
 import os
 import re
+from pathlib import Path
 from datetime import datetime
 from PyPDF2 import PdfReader
 from boxsdk import Client, OAuth2
@@ -12,9 +38,14 @@ DEVELOPER_TOKEN = "your_developer_token"
 # Box folder ID for root directory (default root folder ID is '0')
 BOX_ROOT_FOLDER_ID = "your_folder_id"
 
-# Path to the directory containing receipts
-RECEIPTS_DIRECTORY = "/path/to/your/receipts"
+# Get current working directory and create a 'receipts' directory
+# to store the receipts
+RECEIPTS_DIRECTORY: Path = Path(os.getcwd()) / "receipts"
 
+# Create the 'receipts' directory if it does not exist
+if not RECEIPTS_DIRECTORY.exists():
+    RECEIPTS_DIRECTORY.mkdir(parents=True)
+    print(f"Created receipts directory: {RECEIPTS_DIRECTORY}")
 
 def extract_company_and_date(pdf_path):
     """Extract the company name and date from the receipt PDF."""
@@ -27,10 +58,13 @@ def extract_company_and_date(pdf_path):
 
         # Example patterns for company name and date (adjust as needed)
         company_match = re.search(r"(?i)(company|vendor):\s*(\w+)", text)
-        date_match = re.search(r"(\d{4}-\d{2}-\d{2})", text)  # YYYY-MM-DD format
+        date_match = re.search(
+            r"(\d{4}-\d{2}-\d{2})",
+            text)  # YYYY-MM-DD format
 
         company_name = company_match[2] if company_match else "Unknown_Company"
-        date = date_match[1] if date_match else datetime.now().strftime("%Y-%m-%d")
+        date = date_match[1] if date_match else datetime.now().strftime(
+            "%Y-%m-%d")
 
         return company_name.strip(), date.strip()
     except Exception as e:
@@ -41,8 +75,9 @@ def extract_company_and_date(pdf_path):
 def upload_to_box(file_path, company_name, new_file_name):
     """Upload the receipt to a Box folder corresponding to the company name."""
     oauth2 = OAuth2(
-        client_id=CLIENT_ID, client_secret=CLIENT_SECRET, access_token=DEVELOPER_TOKEN
-    )
+        client_id=CLIENT_ID,
+        client_secret=CLIENT_SECRET,
+        access_token=DEVELOPER_TOKEN)
     client = Client(oauth2)
 
     # Ensure the company folder exists (create it if not)
