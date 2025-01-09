@@ -2,7 +2,7 @@
 # dependencies = [
 #   "pypdf",
 #   "boxsdk"
-#]
+# ]
 # [tool.uv]
 # exclude-newer = "2024-01-01T00:00:00Z"
 # ///
@@ -30,16 +30,18 @@ Example:
 """
 
 # pylint: disable=W0718  # Catch-all 'except' warnings
+# pylint: disable=W0621  # Redefining name from outer scope
 
-__version__ = '0.1.0'
-__author__ = 'Adam Getchell'
+__version__ = "0.1.0"
+__author__ = "Adam Getchell"
 
 import os
 import re
-from pathlib import Path
 from datetime import datetime
-from pypdf import PdfReader
+from pathlib import Path
+
 from boxsdk import Client, OAuth2
+from pypdf import PdfReader
 
 # Box API credentials
 CLIENT_ID = "your_client_id"
@@ -57,6 +59,7 @@ RECEIPTS_DIRECTORY: Path = Path(os.getcwd()) / "receipts"
 if not RECEIPTS_DIRECTORY.exists():
     RECEIPTS_DIRECTORY.mkdir(parents=True)
     print(f"Created receipts directory: {RECEIPTS_DIRECTORY}")
+
 
 def extract_company_and_date(pdf_path):
     """Extract the company name and date from the receipt PDF."""
