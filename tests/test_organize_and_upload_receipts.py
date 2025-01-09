@@ -27,12 +27,12 @@ from admin.organize_and_upload_receipts import (
 )
 
 
-@pytest.fixture
-def temp_receipts_dir(tmp_path):
-    """Create temporary receipts directory."""
-    receipts_dir = tmp_path / "receipts"
-    receipts_dir.mkdir()
-    return receipts_dir
+# @pytest.fixture
+# def temp_receipts_dir(tmp_path):
+#     """Create temporary receipts directory."""
+#     receipts_dir = tmp_path / "receipts"
+#     receipts_dir.mkdir()
+#     return receipts_dir
 
 
 @pytest.fixture

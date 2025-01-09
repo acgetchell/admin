@@ -29,7 +29,7 @@ Example:
     >>> print(f"Company: {company}, Date: {date}")
 """
 
-# pylint: disable=W0718, W0621  # Catch-all 'except' warnings, Redefining name from outer scope
+# pylint: disable=W0718  # Catch-all 'except' warnings
 
 __version__ = "0.1.0"
 __author__ = "Adam Getchell"
