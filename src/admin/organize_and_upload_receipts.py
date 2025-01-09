@@ -1,6 +1,6 @@
 # /// script
 # dependencies = [
-#   "PyPDF2",
+#   "pypdf",
 #   "boxsdk"
 #]
 # [tool.uv]
@@ -15,7 +15,7 @@ This module provides functionality to:
     - Upload receipts to Box cloud storage
 
 Dependencies:
-    - PyPDF2: PDF parsing
+    - pypdf: PDF parsing
     - boxsdk: Box API integration
     - Python 3.6+: f-strings, Path objects
 
@@ -36,7 +36,7 @@ import os
 import re
 from pathlib import Path
 from datetime import datetime
-from PyPDF2 import PdfReader
+from pypdf import PdfReader
 from boxsdk import Client, OAuth2
 
 # Box API credentials
