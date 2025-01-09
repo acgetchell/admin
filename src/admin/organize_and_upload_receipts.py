@@ -1,3 +1,12 @@
+# /// script
+# dependencies = [
+#   "PyPDF2",
+#   "boxsdk"
+#]
+# [tool.uv]
+# exclude-newer = "2024-01-01T00:00:00Z"
+# ///
+
 """Receipt organization and Box upload automation tool.
 
 This module provides functionality to:

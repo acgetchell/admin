@@ -22,7 +22,9 @@ jobs:
         cache-dependency-glob: "uv.lock"
     
     - name: Install project
-      run: uv sync --all-extras --dev
+      run: |
+        uv sync --all-extras --dev
+        uv pip install pylint
     
     - name: Analyzing the code with pylint
       run: |
