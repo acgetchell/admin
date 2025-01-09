@@ -1,0 +1,21 @@
+name: "PEP8 formatting"
+on:
+  push:
+  pull_request:
+    # Run on ready for review or merged pull requests
+    types: [ready_for_review, closed]
+  # Run on manual trigger
+  workflow_dispatch:
+
+jobs:
+  pep8:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout code'
+        uses: actions/checkout@master
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: 'Run PEP8'
+        uses: quentinguidee/pep8-action@v1
+        with:
+          arguments: '--max-line-length=200 --exclude=alembic'
