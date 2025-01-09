@@ -29,8 +29,7 @@ Example:
     >>> print(f"Company: {company}, Date: {date}")
 """
 
-# pylint: disable=W0718  # Catch-all 'except' warnings
-# pylint: disable=W0621  # Redefining name from outer scope
+# pylint: disable=W0718, W0621  # Catch-all 'except' warnings, Redefining name from outer scope
 
 __version__ = "0.1.0"
 __author__ = "Adam Getchell"
@@ -72,13 +71,10 @@ def extract_company_and_date(pdf_path):
 
         # Example patterns for company name and date (adjust as needed)
         company_match = re.search(r"(?i)(company|vendor):\s*(\w+)", text)
-        date_match = re.search(
-            r"(\d{4}-\d{2}-\d{2})",
-            text)  # YYYY-MM-DD format
+        date_match = re.search(r"(\d{4}-\d{2}-\d{2})", text)  # YYYY-MM-DD format
 
         company_name = company_match[2] if company_match else "Unknown_Company"
-        date = date_match[1] if date_match else datetime.now().strftime(
-            "%Y-%m-%d")
+        date = date_match[1] if date_match else datetime.now().strftime("%Y-%m-%d")
 
         return company_name.strip(), date.strip()
     except Exception as e:
@@ -89,9 +85,8 @@ def extract_company_and_date(pdf_path):
 def upload_to_box(file_path, company_name, new_file_name):
     """Upload the receipt to a Box folder corresponding to the company name."""
     oauth2 = OAuth2(
-        client_id=CLIENT_ID,
-        client_secret=CLIENT_SECRET,
-        access_token=DEVELOPER_TOKEN)
+        client_id=CLIENT_ID, client_secret=CLIENT_SECRET, access_token=DEVELOPER_TOKEN
+    )
     client = Client(oauth2)
 
     # Ensure the company folder exists (create it if not)
