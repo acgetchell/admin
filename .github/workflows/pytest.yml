@@ -1,6 +1,12 @@
 name: Pytest
 
-on: [push]
+on:
+  push:
+  pull_request:
+    # Run on ready for review or merged pull requests
+    types: [ready_for_review, closed]
+  # Run on manual trigger
+  workflow_dispatch:
 
 jobs:
   build:
