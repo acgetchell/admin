@@ -10,6 +10,7 @@
         "Pylint",
         "pypdf",
         "pytest",
+        "quentinguidee",
         "venv"
     ],
     "ignoreWords": [],
