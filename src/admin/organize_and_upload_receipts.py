@@ -29,6 +29,8 @@ Example:
     >>> print(f"Company: {company}, Date: {date}")
 """
 
+# pylint: disable=W0718  # Catch-all 'except' warnings
+
 __version__ = '0.1.0'
 __author__ = 'Adam Getchell'
 
